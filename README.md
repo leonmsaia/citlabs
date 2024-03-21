@@ -5,7 +5,7 @@ Step 1: Clone the Repository Clone the repository from GitHub:
 
 Step 2: Configure the .env File Complete the .env file with the desired data as needed. (It can be left as default)
 
-Step 3: Build and Run Docker Containers docker-compose up --build This will build the necessary Docker containers, namely: Laravel (11.0.0), MySQL, phpMyAdmin, MongoDB.
+Step 3: Build and Run Docker Containers docker-compose up --build This will build the necessary Docker containers, namely: CodeIgniter (3), MySQL, phpMyAdmin.
 
 Step 4: If you need to set special enviroment variables, check the .env file inside the codeigniter folder, that will be mapped in: codeigniter/application/config/database. And the load of the composer vendors are inicialized in the main index.php file in the root folder (codeigniter).
 
