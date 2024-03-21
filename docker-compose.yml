@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  codeigniter:
+    build:
+      context: .
+      dockerfile: ./codeigniter/Dockerfile
+    container_name: ${CODEIGNITER_CONTAINER_NAME}
+    ports:
+      - ${CODEIGNITER_PORT}:80
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: ${CODEIGNITER_DB_HOST}
+      DB_PORT: ${CODEIGNITER_DB_PORT}
+      DB_NAME: ${CODEIGNITER_DB_NAME}
+      DB_USER: ${CODEIGNITER_DB_USER}
+      DB_PASSWORD: ${CODEIGNITER_DB_PASSWORD}
+    networks:
+      - codeigniter_network
+    volumes:
+        - ./codeigniter:/var/www/html/
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    container_name: ${MYSQL_CONTAINER_NAME}
+    ports:
+      - ${MYSQL_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - codeigniter_network
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    
+  phpmyadmin:
+    build:
+      context: .
+      dockerfile: ./phpmyadmin/Dockerfile
+    container_name: ${PHPMYADMIN_CONTAINER_NAME}
+    ports:
+      - ${PHPMYADMIN_PORT}:80
+    environment:
+      PMA_HOST: ${PHPMYADMIN_DB_HOST}
+      PMA_PORT: ${PHPMYADMIN_DB_PORT}
+      MYSQL_USER: ${PHPMYADMIN_DB_USER}
+      MYSQL_PASSWORD: ${PHPMYADMIN_DB_PASSWORD}
+    depends_on:
+      - mysql
+    networks:
+      - codeigniter_network
+
+networks:
+  codeigniter_network:     

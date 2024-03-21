@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+/vendor/
+
+/codeigniter/node_modules
+
+/mysql/data
+
+# .env
